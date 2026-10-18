@@ -1,0 +1,18 @@
+# Extended Hamming (8,4) SECDED checks.
+# Run with: python3 hammingkit.py batch examples/checks.txt
+code 8,4
+
+# Encoding: data bits in, codeword out.
+encode 1011 expect 01100110
+encode 1100 expect 01111000
+encode 0000 expect 00000000
+
+# Clean words decode as ok and return their data.
+decode 01100110 expect ok 1011
+
+# One flipped bit is corrected, including the overall parity bit.
+decode 00100110 expect corrected 1011
+decode 01100111 expect corrected 1011
+
+# Two flipped bits are detected, not silently "fixed".
+decode 00101110 expect detected
